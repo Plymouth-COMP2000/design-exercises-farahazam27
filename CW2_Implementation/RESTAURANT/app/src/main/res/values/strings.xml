@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RESTAURANT</string>
+    <string name="login_title">LOG IN</string>
+    <string name="username_hint">USERNAME</string>
+    <string name="password_hint">PASSWORD</string>
+    <string name="login_button">LOGIN</string>
+    <string name="staff_login_text">Login as staff? Tap here</string>
+    <string name="create_account_button">CREATE ACCOUNT</string>
+    <string name="logo_placeholder">[THIS IS A LOGO]</string>
+</resources>
