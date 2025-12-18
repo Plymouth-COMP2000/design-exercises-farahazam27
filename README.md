@@ -1,114 +1,49 @@
-Restaurant Management Application
+Restaurant Management Application (Android)
 
-## Project Overview
-This is a mobile application developed as part of the COMP2000 Software Engineering 2 module coursework. The application provides a comprehensive restaurant management system with separate interfaces for Staff and Guest users.
+Module: MAL2017 Software Engineering 2 (COMP2000) Assessment Type: 100% Coursework 
 
-## Module Information
-- **Module Code:** MAL2017 (COMP2000)
-- **Module Title:** Software Engineering 2
-- **Module Leader:** Dr Ang Jin Sheng
-- **Assessment Type:** 100% Coursework
-  - Assessment 1 (30%): Design Exercises
-  - Assessment 2 (70%): Implementation
 
-## Application Description
-The Restaurant Management Application enables efficient management of restaurant operations through two distinct user roles:
+Project Overview
+This repository contains the coursework for developing a mobile Restaurant Management System. The project is divided into two main assessments, organized into separate folders:
 
-### Staff Side Features
-- Add, edit, and delete menu items (with name, price, and image)
-- View and manage customer reservations
-- Cancel reservations when necessary
-- Receive notifications for new and modified reservations
+📂 Repository Structure
+1. CW1_Design (Assessment 1 - 30%)  Contains the design and prototyping phase of the application:
 
-### Guest Side Features
-- Browse restaurant menu with prices and images
-- Make table reservations for specific dates and times
-- Edit or cancel existing reservations
-- Receive notifications when reservation status changes
 
-## Technical Implementation
+User Analysis & Personas: Identifying Staff and Guest user needs.
 
-### Technologies Used
-- **Language:** Java
-- **IDE:** Android Studio
-- **Database:** 
-  - SQLite (local storage for menu and reservations)
-  - RESTful API integration for user authentication and centralized data
-- **Version Control:** Git & GitHub
 
-### Key Technical Features
-- Role-based access control (Staff/Guest authentication)
-- Multi-threaded API connections (worker threads for non-blocking UI)
-- Local database management with SQLite
-- Push notifications with user-customizable preferences
-- Responsive UI supporting multiple screen sizes and orientations
-- Implementation of SOLID principles and design patterns
+Low-Fidelity Prototypes: Sketches and initial wireframes.
 
-## Design Principles Applied
-- Human-Computer Interaction (HCI) principles
-- Standard design patterns
-- SOLID programming principles
-- Usability-centered design approach
 
-## Development Process
-This project follows an iterative design and development process:
+Usability Evaluation: Formative testing with users and feedback analysis.
 
-1. **User Analysis & Requirements Gathering**
-2. **Low-Fidelity Prototyping** (paper sketches/wireframes)
-3. **Formative Usability Evaluation** (with representative users)
-4. **UI Refinement** based on feedback
-5. **High-Fidelity Implementation** in Android Studio
-6. **Full Application Development**
-7. **Summative Usability Testing**
 
-## API Integration
-The application connects to a RESTful API for secure user authentication and data management. API documentation is available through the module resources.
+Final Design: High-fidelity UI designs prepared for implementation.
 
-- API Documentation: http://10.240.72.69/comp2000/coursework/docs#/
+2. CW2_Implementation (Assessment 2 - 70%)  Contains the fully functional Android Studio project (Java):
 
-## Setup Instructions
-1. Clone this repository
-2. Open the project in Android Studio
-3. Sync Gradle files
-4. Configure API endpoint settings (if necessary)
-5. Run the application on an emulator or physical device
 
-## Testing
-- Usability testing conducted with representative users
-- Functionality testing across typical and edge-case scenarios
-- Responsive design testing on multiple device sizes
+Staff Side: Functionality to add/edit menu items (CRUD), manage reservations, and receive notifications.
 
-## Use of Generative AI
-This project was developed with **Assisted Work** level AI usage, as permitted by the module guidelines. AI tools were used for:
-- Idea Generation and Problem Exploration (A1)
-- Planning & Structuring Projects (A2)
-- Research Assistance (A4)
-- Language Refinement (A5)
-- Technical Guidance & Debugging Support (A8)
 
-All AI usage has been declared in accordance with university policy and included in the submitted documentation.
+Guest Side: Functionality to browse the menu and make table reservations.
 
-## Submission Components
-1. **Design Report** - PDF document detailing design process and decisions
-2. **Implementation Report** - PDF document covering technical implementation
-3. **Video Presentations** - Demonstration videos showcasing design and functionality
-4. **Source Code** - Complete Android Studio project (this repository)
 
-## Assessment Deadlines
-- Design Report: 5 December 2025 (15:00)
-- Implementation Report: 19 December 2025 (15:00)
+Data Management: Uses SQLite for local storage and connects to a RESTful API for authentication.
 
-## Academic Integrity
-This project adheres to the University of Plymouth's academic integrity policies. All external code sources and AI assistance have been properly documented and referenced.
 
-## Author
-[NUR FARAH AQILAH BINTI NORAZAM]
-[BSCS2509261]
-=
+🛠 Tech Stack
 
-## License
-This project is submitted as academic coursework for MAL2017 Software Engineering 2.
+Language: Java (Android Studio) 
 
----
 
-**Note:** This repository is maintained as part of the assessment requirements and demonstrates incremental development through version control commits from initial design to final implementation.
+Database: SQLite (Local) & RESTful API (Remote) 
+
+
+
+Architecture: Applied SOLID principles and standard design patterns.
+
+
+Author
+Name: NUR FARAH AQILAH BINTI NORAZAM Student ID: BSCS2509261
