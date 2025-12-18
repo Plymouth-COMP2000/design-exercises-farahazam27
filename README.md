@@ -12,23 +12,15 @@ This repository contains the coursework for developing a mobile **Restaurant Man
 
 ## 📂 Repository Structure
 
-### **1. CW1_Design (Assessment 1 - 30%)**
-*Contains the design and prototyping phase of the application.*
-
-* **👥 User Analysis & Personas:** Identifying Staff and Guest user needs.
-* **🎨 Low-Fidelity Prototypes:** Sketches and initial wireframes.
-* **🧪 Usability Evaluation:** Formative testing with users and feedback analysis.
-* **✨ Final Design:** High-fidelity UI designs prepared for implementation.
+### **1. Assessment 1 (Assessment 1 - 30%)**
+*Located in the root directory (folder `RESTAURANT` - Updated 2 weeks ago).*
+* Contains the design prototypes and Guest GUI from Assessment 1.
 
 <br>
 
-### **2. CW2_Implementation (Assessment 2 - 70%)**
-*Contains the fully functional Android Studio project (Java).*
-
-* **👨‍🍳 Staff Side:** Functionality to add/edit menu items (CRUD), manage reservations, and receive notifications.
-* **🍽️ Guest Side:** Functionality to browse the menu and make table reservations.
-* **💾 Data Management:** Uses **SQLite** for local storage and connects to a **RESTful API** for authentication.
-
+### **2. CW2_Implementation (Assessment 2)**
+*Located in the `CW2_Implementation` folder.*
+* Contains the FINAL Android Application with Staff Logic, SQLite Database, and API integration.
 ---
 
 ## 🛠️ Technical Implementation
