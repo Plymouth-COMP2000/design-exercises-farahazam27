@@ -5,12 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class StaffLoginActivity extends AppCompatActivity {
 
     EditText etStaffUsername, etStaffPassword;
+    TextView tvGuestLogin;
     Button btnStaffLogin;
     DatabaseHelper db;
 
@@ -24,6 +26,12 @@ public class StaffLoginActivity extends AppCompatActivity {
         etStaffUsername = findViewById(R.id.etStaffUsername);
         etStaffPassword = findViewById(R.id.etStaffPassword);
         btnStaffLogin = findViewById(R.id.btnStaffLogin);
+        tvGuestLogin = findViewById(R.id.tvGuestLogin);
+
+        tvGuestLogin.setOnClickListener(v -> {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        });
 
         btnStaffLogin.setOnClickListener(v -> {
             String user = etStaffUsername.getText().toString().trim();
