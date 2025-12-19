@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        tvStaffLogin = findViewById(R.id.tvStaffLogin); // Link tulisan kecik Staff
+        tvStaffLogin = findViewById(R.id.tvStaffLogin); 
 
         // 2. SETUP API
         apiService = ApiClient.getClient().create(ApiService.class);
