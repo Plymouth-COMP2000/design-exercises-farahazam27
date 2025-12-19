@@ -3,12 +3,12 @@ package com.example.restaurant;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,13 +34,12 @@ public class ManageMenuActivity extends AppCompatActivity {
 
         if (btnBack != null) btnBack.setOnClickListener(v -> finish());
 
-        // ADD BUTTON
         btnAddItem.setOnClickListener(v -> {
             Intent intent = new Intent(ManageMenuActivity.this, AddMenuActivity.class);
             startActivity(intent);
         });
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -61,6 +60,7 @@ public class ManageMenuActivity extends AppCompatActivity {
             int nameIndex = cursor.getColumnIndex("name");
             int priceIndex = cursor.getColumnIndex("price");
             int descIndex = cursor.getColumnIndex("description");
+            int imgIndex = cursor.getColumnIndex("image_resource");
 
             if(idIndex == -1 || nameIndex == -1) continue;
 
@@ -68,13 +68,15 @@ public class ManageMenuActivity extends AppCompatActivity {
             String name = cursor.getString(nameIndex);
             String price = cursor.getString(priceIndex);
             String desc = cursor.getString(descIndex);
+            int imageResId = cursor.getInt(imgIndex);
 
-            // Inflate Card
             View cardView = LayoutInflater.from(this).inflate(R.layout.item_manage_menu_card, containerMenu, false);
 
             TextView tvName = cardView.findViewById(R.id.tvFoodName);
             TextView tvPrice = cardView.findViewById(R.id.tvFoodPrice);
             TextView tvDesc = cardView.findViewById(R.id.tvFoodDesc);
+            ImageView ivFood = cardView.findViewById(R.id.ivFoodImage);
+
             Button btnEdit = cardView.findViewById(R.id.btnEdit);
             Button btnDelete = cardView.findViewById(R.id.btnDelete);
 
@@ -82,16 +84,23 @@ public class ManageMenuActivity extends AppCompatActivity {
             tvPrice.setText("$" + price);
             tvDesc.setText(desc);
 
-            // DELETE BUTTON
+            if (ivFood != null) {
+                if (imageResId != 0) {
+                    ivFood.setImageResource(imageResId);
+                } else {
+                    ivFood.setImageResource(R.drawable.seafood_img);
+                }
+            }
+
             btnDelete.setOnClickListener(v -> confirmDelete(itemId));
 
-            // EDIT BUTTON
             btnEdit.setOnClickListener(v -> {
                 Intent intent = new Intent(ManageMenuActivity.this, EditMenuActivity.class);
                 intent.putExtra("id", itemId);
                 intent.putExtra("name", name);
                 intent.putExtra("price", price);
                 intent.putExtra("desc", desc);
+                intent.putExtra("image", imageResId);
                 startActivity(intent);
             });
 
