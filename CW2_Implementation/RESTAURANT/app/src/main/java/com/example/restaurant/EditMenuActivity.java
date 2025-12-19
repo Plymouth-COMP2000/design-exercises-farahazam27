@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EditMenuActivity extends AppCompatActivity {
 
     EditText etName, etPrice, etDesc;
+    ImageView ivFoodImage;
     Button btnSaveChanges;
     ImageButton btnBack;
     DatabaseHelper db;
@@ -29,6 +31,7 @@ public class EditMenuActivity extends AppCompatActivity {
         etName = findViewById(R.id.etEditName);
         etPrice = findViewById(R.id.etEditPrice);
         etDesc = findViewById(R.id.etEditDesc);
+        ivFoodImage = findViewById(R.id.ivFoodImage);
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
         btnBack = findViewById(R.id.btnBack);
 
@@ -39,6 +42,16 @@ public class EditMenuActivity extends AppCompatActivity {
             etName.setText(getIntent().getStringExtra("name"));
             etPrice.setText(getIntent().getStringExtra("price"));
             etDesc.setText(getIntent().getStringExtra("desc"));
+
+            int imgResId = getIntent().getIntExtra("image", 0);
+
+            if (ivFoodImage != null) {
+                if (imgResId != 0) {
+                    ivFoodImage.setImageResource(imgResId);
+                } else {
+                    ivFoodImage.setImageResource(R.drawable.seafood_img);
+                }
+            }
         }
 
         btnSaveChanges.setOnClickListener(v -> {
@@ -50,8 +63,10 @@ public class EditMenuActivity extends AppCompatActivity {
 
     private void showConfirmPopup() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_confirm_update); // Reusing your Gold Popup
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_confirm_update);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
         Button btnCancel = dialog.findViewById(R.id.btnCancel);
         Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
@@ -75,7 +90,7 @@ public class EditMenuActivity extends AppCompatActivity {
 
         if (success) {
             Toast.makeText(this, "Menu Item Successfully Updated!", Toast.LENGTH_LONG).show();
-            finish(); // Go back to Manage Menu
+            finish();
         } else {
             Toast.makeText(this, "Update Failed", Toast.LENGTH_SHORT).show();
         }
