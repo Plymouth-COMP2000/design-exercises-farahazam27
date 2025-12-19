@@ -28,18 +28,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 1. LINK ID XML
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        tvStaffLogin = findViewById(R.id.tvStaffLogin); 
+        tvStaffLogin = findViewById(R.id.tvStaffLogin);
 
-        // 2. SETUP API
+        //  SETUP API
         apiService = ApiClient.getClient().create(ApiService.class);
         setupServerDatabase();
 
-        // 3. LOGIC LOGIN BUTTON (GUEST)
+        //  LOGIC LOGIN BUTTON (GUEST)
         btnLogin.setOnClickListener(v -> {
             String user = etUsername.getText().toString().trim();
             String pass = etPassword.getText().toString().trim();
@@ -51,12 +50,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // 4. LOGIC CREATE ACCOUNT
+        //  LOGIC CREATE ACCOUNT
         btnCreateAccount.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
         });
 
-        // 5. LOGIC STAFF LOGIN (Pindah ke StaffLoginActivity)
+        //  LOGIC STAFF LOGIN 
         tvStaffLogin.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, StaffLoginActivity.class));
         });

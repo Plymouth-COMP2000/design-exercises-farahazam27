@@ -3,106 +3,72 @@ package com.example.restaurant;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.appcompat.app.AlertDialog;
+import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MyReservationActivity extends AppCompatActivity {
-    LinearLayout containerReservations, layoutEmptyState;
-    ScrollView layoutListState;
-    DatabaseHelper db;
+
+    ListView lvReservations;
+    LinearLayout layoutEmpty;
+    Button btnMakeFirstReservation;
+    FloatingActionButton fabAdd;
     ImageButton btnBack;
-    Button btnMakeReservation;
+    DatabaseHelper db;
+    ReservationAdapter adapter; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_reservation);
 
-        containerReservations = findViewById(R.id.containerReservations);
-        layoutEmptyState = findViewById(R.id.layoutEmptyState);
-        layoutListState = findViewById(R.id.layoutListState);
-        btnBack = findViewById(R.id.btnBack);
-        btnMakeReservation = findViewById(R.id.btnMakeReservation);
         db = new DatabaseHelper(this);
 
-        if (btnBack != null) btnBack.setOnClickListener(v -> finish());
-        if (btnMakeReservation != null) btnMakeReservation.setOnClickListener(v -> {
-            startActivity(new Intent(this, MakeReservationActivity.class));
-            finish();
-        });
+        lvReservations = findViewById(R.id.lvReservations);
+        layoutEmpty = findViewById(R.id.layoutEmpty);
+        btnMakeFirstReservation = findViewById(R.id.btnMakeFirstReservation);
+        fabAdd = findViewById(R.id.fabAdd);
+        btnBack = findViewById(R.id.btnBack);
 
-        loadMyReservations();
+        loadReservations(); 
+
+        btnMakeFirstReservation.setOnClickListener(v -> goToBooking());
+        fabAdd.setOnClickListener(v -> goToBooking());
+        if (btnBack != null) btnBack.setOnClickListener(v -> finish());
     }
 
-    private void loadMyReservations() {
-        containerReservations.removeAllViews();
+    private void goToBooking() {
+        startActivity(new Intent(MyReservationActivity.this, MakeReservationActivity.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadReservations(); 
+    }
+
+    public void loadReservations() {
         SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
-        String myLoginUsername = prefs.getString("username", "");
+        String username = prefs.getString("username", "");
 
-        Cursor cursor = db.getAllReservations();
-        boolean hasBooking = false;
+        Cursor cursor = db.getAllReservations(); 
 
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
-                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-                String time = cursor.getString(cursor.getColumnIndexOrThrow("time"));
-                String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
-                String useridInDb = cursor.getString(cursor.getColumnIndexOrThrow("userid"));
-
-                if (!useridInDb.equals(myLoginUsername)) continue;
-
-                hasBooking = true;
-
-                View card = LayoutInflater.from(this).inflate(R.layout.item_reservation, containerReservations, false);
-                TextView tvName = card.findViewById(R.id.tvResName);
-                TextView tvStatus = card.findViewById(R.id.tvResStatus);
-                Button btnCancel = card.findViewById(R.id.btnCancelRes);
-                Button btnApprove = card.findViewById(R.id.btnApproveRes);
-
-                tvName.setText(name + "\n" + date + " " + time);
-                if (btnApprove != null) btnApprove.setVisibility(View.GONE);
-
-                if (status.equalsIgnoreCase("Confirmed")) {
-                    tvStatus.setText("Confirmed");
-                    tvStatus.setTextColor(Color.GREEN);
-                } else {
-                    tvStatus.setText("Pending");
-                    tvStatus.setTextColor(Color.parseColor("#FFA500"));
-                }
-
-                btnCancel.setOnClickListener(v -> {
-                    new AlertDialog.Builder(this).setTitle("Cancel").setMessage("Delete this booking?")
-                            .setPositiveButton("Yes", (d, w) -> {
-                                if (db.deleteReservation(id)) {
-                                    db.addNotification("Cancelled", name + " cancelled booking.", "staff");
-                                    NotificationHelper.sendNotification(this, "Cancelled", "Booking cancelled.");
-                                    loadMyReservations();
-                                }
-                            }).setNegativeButton("No", null).show();
-                });
-                containerReservations.addView(card);
-            }
-            cursor.close();
-        }
-
-        if (hasBooking) {
-            layoutListState.setVisibility(View.VISIBLE);
-            layoutEmptyState.setVisibility(View.GONE);
+        if (cursor == null || cursor.getCount() == 0) {
+            layoutEmpty.setVisibility(View.VISIBLE);
+            lvReservations.setVisibility(View.GONE);
+            fabAdd.setVisibility(View.GONE);
         } else {
-            layoutListState.setVisibility(View.GONE);
-            layoutEmptyState.setVisibility(View.VISIBLE);
+            layoutEmpty.setVisibility(View.GONE);
+            lvReservations.setVisibility(View.VISIBLE);
+            fabAdd.setVisibility(View.VISIBLE);
+
+            adapter = new ReservationAdapter(this, cursor);
+            lvReservations.setAdapter(adapter);
         }
     }
 }

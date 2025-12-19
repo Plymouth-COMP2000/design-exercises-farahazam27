@@ -33,6 +33,7 @@ public class StaffLoginActivity extends AppCompatActivity {
             finish();
         });
 
+
         btnStaffLogin.setOnClickListener(v -> {
             String user = etStaffUsername.getText().toString().trim();
             String pass = etStaffPassword.getText().toString().trim();

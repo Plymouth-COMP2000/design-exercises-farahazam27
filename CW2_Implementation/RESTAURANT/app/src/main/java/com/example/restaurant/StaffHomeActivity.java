@@ -16,12 +16,12 @@ public class StaffHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_home);
 
-        // 1. Link Buttons
+        // Link Buttons
         btnManageMenu = findViewById(R.id.btnManageMenu);
         btnViewBookings = findViewById(R.id.btnViewBookings);
         btnSettings = findViewById(R.id.btnSettings);
 
-        // 2. Manage Menu Logic
+        // Manage Menu Logic
         btnManageMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,7 +30,7 @@ public class StaffHomeActivity extends AppCompatActivity {
             }
         });
 
-        // 3. View Reservations Logic
+        // View Reservations Logic
         btnViewBookings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +39,7 @@ public class StaffHomeActivity extends AppCompatActivity {
             }
         });
 
-        // 4. Settings Logic
+        // Settings Logic
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

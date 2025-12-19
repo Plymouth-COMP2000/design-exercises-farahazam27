@@ -11,11 +11,9 @@ import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // 1. DATABASE CONFIGURATION
     public static final String DATABASE_NAME = "RestaurantFinalV15.db";
     public static final int DATABASE_VERSION = 15;
 
-    // 2. TABLE NAMES
     public static final String TABLE_USERS = "users";
     public static final String TABLE_MENU = "menu_items";
     public static final String TABLE_RESERVATIONS = "reservations";
@@ -25,48 +23,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // 3. CREATE TABLES & DEFAULT DATA
     @Override
     public void onCreate(SQLiteDatabase db) {
-        
+        // Table Users
         db.execSQL("CREATE TABLE " + TABLE_USERS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, phone TEXT, role TEXT)");
 
+        // Table Menu
         db.execSQL("CREATE TABLE " + TABLE_MENU + " (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, description TEXT, image_resource INTEGER)");
 
+        // Table Reservations
         db.execSQL("CREATE TABLE " + TABLE_RESERVATIONS + " (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, date TEXT, time TEXT, guests TEXT, status TEXT, userid TEXT)");
 
+        // Table Notifications
         db.execSQL("CREATE TABLE " + TABLE_NOTIFICATIONS + " (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, message TEXT, receiver TEXT, date TEXT, is_read INTEGER DEFAULT 0)");
 
+        // --- INSERT DEFAULT DATA ---
         db.execSQL("INSERT INTO " + TABLE_USERS + " (username, password, role) VALUES ('admin', '1234', 'staff')");
 
-        // --- INSERT 3 DEFAULT MENU ITEMS ---
-
-        // Menu 1: Seafood Noodles
-        ContentValues menu1 = new ContentValues();
-        menu1.put("name", "Seafood Noodles");
-        menu1.put("price", "15.00");
-        menu1.put("description", "Spicy broth with fresh prawns.");
-        menu1.put("image_resource", R.drawable.seafood_img); 
-        db.insert(TABLE_MENU, null, menu1);
-
-        // Menu 2: Mee Curry
-        ContentValues menu2 = new ContentValues();
-        menu2.put("name", "Mee Curry");
-        menu2.put("price", "12.00");
-        menu2.put("description", "Vegetable curry with noodles.");
-        menu2.put("image_resource", R.drawable.curry_img); 
-        db.insert(TABLE_MENU, null, menu2);
-
-        // Menu 3: Biryani Rice
-        ContentValues menu3 = new ContentValues();
-        menu3.put("name", "Biryani Rice");
-        menu3.put("price", "18.00");
-        menu3.put("description", "Aromatic South Asian layered rice dish, yogurt-marinated beef slow-cooked.");
-        menu3.put("image_resource", R.drawable.biryani_img); 
-        db.insert(TABLE_MENU, null, menu3);
+        // Menu Items Default
+        addDefaultMenu(db, "Seafood Noodles", "15.00", "Spicy broth with fresh prawns.", R.drawable.seafood_img);
+        addDefaultMenu(db, "Mee Curry", "12.00", "Vegetable curry with noodles.", R.drawable.curry_img);
+        addDefaultMenu(db, "Biryani Rice", "18.00", "Aromatic South Asian layered rice dish.", R.drawable.biryani_img);
     }
 
-    // 4. HANDLE UPGRADES
+    private void addDefaultMenu(SQLiteDatabase db, String name, String price, String desc, int img) {
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("price", price);
+        cv.put("description", desc);
+        cv.put("image_resource", img);
+        db.insert(TABLE_MENU, null, cv);
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
@@ -76,10 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // ==========================================
-    // CRUD METHODS FOR MENU
-    // ==========================================
-
+    // CRUD METHODS FOR MENU 
     public boolean addMenuItem(String name, String price, String desc) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -111,14 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM " + TABLE_MENU, null);
     }
 
-    // ==========================================
-    // CRUD METHODS FOR RESERVATIONS
-    // ==========================================
-
-    public boolean addReservation(String name, String date, String time, String guests) {
-        return insertReservation(name, date, time, guests, name);
-    }
-
+    // CRUD METHODS FOR RESERVATIONS 
     public boolean insertReservation(String name, String date, String time, String guests, String userid) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -134,15 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllReservations() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_RESERVATIONS + " ORDER BY id DESC", null);
-    }
-
-    public boolean updateReservationStatus(String id, String status) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("status", status);
-        int result = db.update(TABLE_RESERVATIONS, values, "id=?", new String[]{id});
-        return result > 0;
+        return db.rawQuery("SELECT id AS _id, * FROM " + TABLE_RESERVATIONS + " ORDER BY id DESC", null);
     }
 
     public boolean deleteReservation(String id) {
@@ -150,10 +120,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(TABLE_RESERVATIONS, "id=?", new String[]{id}) > 0;
     }
 
-    // ==========================================
-    // CRUD METHODS FOR NOTIFICATIONS
-    // ==========================================
+    public boolean updateReservationStatus(String id, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", status);
+        return db.update(TABLE_RESERVATIONS, values, "id=?", new String[]{id}) > 0;
+    }
 
+    // CRUD METHODS FOR NOTIFICATIONS
     public boolean addNotification(String title, String message, String receiver) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -171,10 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM " + TABLE_NOTIFICATIONS + " WHERE receiver=? ORDER BY id DESC", new String[]{receiverName});
     }
 
-    // ==========================================
-    // AUTHENTICATION METHODS
-    // ==========================================
-
+    // AUTHENTICATION
     public String checkLogin(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT role FROM " + TABLE_USERS + " WHERE username=? AND password=?", new String[]{username, password});
