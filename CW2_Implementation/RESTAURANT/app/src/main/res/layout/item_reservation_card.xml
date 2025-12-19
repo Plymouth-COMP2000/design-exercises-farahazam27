@@ -3,118 +3,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvResName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Farah Azam"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"/>
+
+            <TextView
+                android:id="@+id/tvResStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:textColor="#757575"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvResStatus"
+            android:id="@+id/tvResDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FF6F3C"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:text="PENDING"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_my_calendar"
-                app:tint="#FF6F3C" />
-
-            <TextView
-                android:id="@+id/tvResDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="15 Dec 2025"
-                android:textColor="#2C2C2C"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_recent_history"
-                app:tint="#FF6F3C" />
-
-            <TextView
-                android:id="@+id/tvResTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="7:30 PM"
-                android:textColor="#2C2C2C"
-                android:textSize="14sp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="16dp"
-                android:layout_marginHorizontal="12dp"
-                android:background="#BDBDBD" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_myplaces"
-                app:tint="#FF6F3C" />
-
-            <TextView
-                android:id="@+id/tvResPax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="4 Guests"
-                android:textColor="#2C2C2C"
-                android:textSize="14sp" />
-        </LinearLayout>
+            android:text="📅 25 Dec 2025  ⏰ 8:00 PM"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
 
         <TextView
-            android:id="@+id/tvResName"
-            android:layout_width="match_parent"
+            android:id="@+id/tvResPax"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Booked by: User"
-            android:textColor="#757575"
-            android:textSize="13sp" />
+            android:text="👥 4 Guests"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#555555"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="16dp"
-            android:background="#E0E0E0" />
+        <Button
+            android:id="@+id/btnCancelRes"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text="CANCEL BOOKING"
+            android:textSize="12sp"
+            android:backgroundTint="#FF0000"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="end"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@android:drawable/btn_default"
-            android:text="CANCEL RESERVATION"
-            android:textColor="#D32F2F"
-            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnApproveRes"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:text="APPROVE BOOKING"
+            android:textSize="12sp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="end"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

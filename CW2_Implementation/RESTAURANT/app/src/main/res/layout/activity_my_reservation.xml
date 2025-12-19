@@ -3,91 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
-    android:padding="20dp">
+    android:background="#FFF3E0"
+    android:padding="16dp">
 
-    <RelativeLayout
-        android:id="@+id/header"
+    <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+        android:paddingBottom="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?android:attr/selectableItemBackground"
             android:src="@android:drawable/ic_menu_revert"
-            app:tint="#2C2C2C"
+            app:tint="#000000"
             android:contentDescription="Back" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:text="MY RESERVATIONS"
-            android:textColor="#2C2C2C"
             android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginEnd="40dp"/> </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutEmptyState"
+        android:id="@+id/layoutEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@android:drawable/ic_menu_my_calendar"
-            app:tint="#FFAB91"
-            android:layout_marginBottom="16dp"/>
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone"> <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@android:drawable/ic_menu_my_calendar"
+        app:tint="#FFAB91"
+        android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NO RESERVATION"
-            android:textColor="#2C2C2C"
-            android:textSize="18sp"
             android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#000000"
             android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="You don't have any upcoming bookings.\nWould you like to make one?"
+            android:textAlignment="center"
             android:textColor="#757575"
-            android:gravity="center"
             android:layout_marginBottom="24dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnMakeReservation"
+            android:id="@+id/btnMakeFirstReservation"
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:background="@drawable/btn_solid_orange"
             android:text="MAKE RESERVATION"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:backgroundTint="#FF6F3C"
+            android:background="@android:drawable/btn_default"
+            android:textStyle="bold"/>
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/layoutListState"
+    <ListView
+        android:id="@+id/lvReservations"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:fillViewport="true"
-        android:visibility="gone"> <LinearLayout
-        android:id="@+id/containerReservations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="80dp">
-    </LinearLayout>
-    </ScrollView>
+        android:layout_below="@id/headerLayout"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        android:visibility="gone"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
@@ -95,9 +92,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="24dp"
         android:src="@android:drawable/ic_input_add"
-        android:backgroundTint="#FF6F3C"
+        app:backgroundTint="#FF6F3C"
         app:tint="#FFFFFF"
         android:visibility="gone"/>
 

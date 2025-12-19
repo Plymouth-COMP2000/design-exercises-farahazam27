@@ -25,9 +25,8 @@
                 android:id="@+id/ivFoodImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@android:drawable/ic_menu_gallery"
-                android:scaleType="centerCrop"
-                app:tint="#FF6F3C"/>
+                android:src="@drawable/seafood_img"
+                android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
