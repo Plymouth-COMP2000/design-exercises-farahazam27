@@ -39,13 +39,14 @@
             android:layout_marginBottom="30dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="4dp">
+
             <ImageView
+                android:id="@+id/ivFoodImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@android:drawable/ic_menu_gallery"
-                android:scaleType="centerCrop"
                 android:background="#EEEEEE"
-                app:tint="#E0A800"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/seafood_img" />
         </androidx.cardview.widget.CardView>
 
         <TextView
